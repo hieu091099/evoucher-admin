@@ -39,7 +39,7 @@ const authReducer = (state = initialState, action: any) => {
         ...state,
         isLoggedIn: false,
         isLoggingIn: false,
-        errorMsg: action.result.message,
+        errorMsg: action.result,
       };
 
     case LOGOUT:
