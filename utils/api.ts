@@ -4,9 +4,9 @@ const API = {
   AUTH: {
     LOGIN: `${API_ROOT}/auth/login`,
     REGISTER: `${API_ROOT}/auth/register`,
-    CHANGE_PASSWORD: `${API_ROOT}/change_password/`,
+    CHANGE_PASSWORD: `${API_ROOT}/changePassword/`,
     FORGOT_PASSWORD: `${API_ROOT}/forgetPassword`,
-    FORGOT_PASSWORD_VERIFY_OTP: `${API_ROOT}/forgetPassword/verify_otp`,
+    FORGOT_PASSWORD_VERIFY_OTP: `${API_ROOT}/forgetPassword/verifyOtp`,
     RESET_PASSWORD: `${API_ROOT}/forgetPassword/resetPassword`,
   },
 };
