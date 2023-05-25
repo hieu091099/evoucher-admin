@@ -9,14 +9,40 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    dispatch(login({username, password}));
+    dispatch(login({ username, password }));
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-      <button type="submit">Login</button>
+      <h3>Login Here</h3>
+
+      <label htmlFor="username">Username</label>
+      <input
+        type="text"
+        placeholder="Email or Phone"
+        id="username"
+        onChange={(e)=>{setUsername(e.target.value)}}
+        value={username}
+      />
+
+      <label htmlFor="password">Password</label>
+      <input
+        type="password"
+        placeholder="Password"
+        id="password"
+        onChange={(e)=>{setPassword(e.target.value)}}
+        value={password}
+      />
+
+      <button>Log In</button>
+      <div className="social">
+        <div className="go">
+          <i className="fab fa-google"></i> Google
+        </div>
+        <div className="fb">
+          <i className="fab fa-facebook"></i> Facebook
+        </div>
+      </div>
     </form>
   );
 };

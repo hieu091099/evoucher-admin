@@ -2,12 +2,12 @@ import { createStore, applyMiddleware, Store } from 'redux';
 import { persistStore, persistReducer, Persistor  } from 'redux-persist';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 
 import rootReducer from './reducers';
 import sagas from './sagas';
 
 
-import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 const createNoopStorage = () => {
    return {
       getItem(_key: any) {

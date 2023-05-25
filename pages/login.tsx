@@ -1,15 +1,23 @@
 import React from 'react';
-import Container from "../components/Container";
-import Layout from "../components/Layout";
+import { AppProps } from 'next/app';
+import { Col, Row } from 'antd';
 
-const LoginPage: React.FC = () => {
+import Container from '../components/Container';
+import Auth from '../layouts/Auth';
+import LoginForm from '../components/LoginForm';
+const style: React.CSSProperties = { background: 'white', padding: '8px 0' };
+
+const LoginPage = (props: AppProps) => {
   return (
-    <Layout header={null} footer={null}>
-      <Container>
-        <h1>Trang đăng nhập</h1>
-      </Container>
-    </Layout>
+    <Container>
+      <Row>
+        <Col>
+          <LoginForm />
+        </Col>
+      </Row>
+    </Container>
   );
 };
+LoginPage.layout = Auth;
 
 export default LoginPage;

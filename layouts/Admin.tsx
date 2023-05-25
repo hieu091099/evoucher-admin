@@ -1,24 +1,18 @@
+// layouts/AdminLayout.tsx
 import React from 'react';
 interface ContainerProps {
   children: React.ReactNode;
   header: React.ReactNode;
   footer: React.ReactNode;
 }
-const Layout: React.FC<ContainerProps> = ({
-  children,
-  header,
-  footer,
-}) => {
-  
-
+const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
   return (
     <div>
-      <header>{header}</header>
+      <header>Admin Header</header>
       <main>{children}</main>
-      <footer>{footer}</footer>
+      <footer>Admin Footer</footer>
     </div>
   );
 };
 
-export default Layout;
-
+export default AdminLayout;

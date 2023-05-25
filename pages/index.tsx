@@ -1,12 +1,10 @@
-import React from "react";
-import Container from "../components/Container";
-import Layout from "../components/Layout";
+import React, { Component } from "react";
+import Router from "next/router";
 
-const Home: React.FC = () =>  {
-  return (
-    <Layout header={null} footer={null}>
-      <Container>home</Container>
-    </Layout>
-  );
+export default function Index() {
+  React.useEffect(() => {
+    Router.push("/dashboard");
+  });
+
+  return <div />;
 }
-export default Home;

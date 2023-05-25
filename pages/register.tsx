@@ -4,13 +4,12 @@ import { AppProps } from 'next/app';
 import Container from '../components/Container';
 import Auth from "../layouts/Auth";
 
-const LogoutPage = (props: AppProps) => {
+const RegisterPage = (props: AppProps) => {
   return (
       <Container>
-        <h1>Trang đăng xuất</h1>
+        <h1>Trang Đăng ký</h1>
       </Container>
   );
 };
-LogoutPage.layout = Auth;
-
-export default LogoutPage;
+RegisterPage.layout = Auth;
+export default RegisterPage;
