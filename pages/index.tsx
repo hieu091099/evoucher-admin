@@ -1,10 +1,12 @@
-import Container from "../components/Container";
 import React from "react";
+import Container from "../components/Container";
+import Layout from "../components/Layout";
 
-export default function Home() {
+const Home: React.FC = () =>  {
   return (
-    <main>
+    <Layout header={null} footer={null}>
       <Container>home</Container>
-    </main>
+    </Layout>
   );
 }
+export default Home;

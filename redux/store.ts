@@ -1,13 +1,30 @@
-import { createStore, applyMiddleware } from 'redux';
-import storage from 'redux-persist/lib/storage';
-import { persistStore, persistReducer } from 'redux-persist';
-import { PersistGate } from 'redux-persist/lib/integration/react';
+import { createStore, applyMiddleware, Store } from 'redux';
+import { persistStore, persistReducer, Persistor  } from 'redux-persist';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import { Provider } from 'react-redux';
 
 import rootReducer from './reducers';
 import sagas from './sagas';
+
+
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
+const createNoopStorage = () => {
+   return {
+      getItem(_key: any) {
+         return Promise.resolve(null);
+      },
+      setItem(_key: any, value: any) {
+         return Promise.resolve(value);
+      },
+      removeItem(_key: any) {
+         return Promise.resolve();
+      },
+   };
+};
+const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage();
+
+// Kiểu RootState của Redux Store
+type RootState = ReturnType<typeof rootReducer>;
 
 const persistConfig = {
   key: 'root',
@@ -15,7 +32,7 @@ const persistConfig = {
   whitelist: ['auth'],
 };
 
-const pReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer  = persistReducer(persistConfig, rootReducer);
 
 const composeEnhancers = composeWithDevTools({
   // Specify name here, actionsBlacklist, actionsCreators and other options if needed
@@ -23,16 +40,18 @@ const composeEnhancers = composeWithDevTools({
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(
-  pReducer,
+const store: Store<RootState> = createStore(
+  persistedReducer,
   composeEnhancers(
     applyMiddleware(sagaMiddleware)
     // other store enhancers if any
   )
 );
 
-const persistor = persistStore(store);
+// Khởi tạo Redux Persist
+const persistor: Persistor = persistStore(store);
 
 sagaMiddleware.run(sagas);
 
-export { store, persistor, PersistGate, Provider };
+export { store, persistor };
+
