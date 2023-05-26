@@ -21,7 +21,6 @@ const Router = () => {
     if (isAuthenticated) {
       router.push('/dashboard');
     } else {
-      console.log('4444')
       goToLogin();
     }
   };

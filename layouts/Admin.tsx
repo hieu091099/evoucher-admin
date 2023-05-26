@@ -7,11 +7,11 @@ interface ContainerProps {
 }
 const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
   return (
-    <div>
+    <React.Fragment>
       <header>Admin Header</header>
       <main>{children}</main>
       <footer>Admin Footer</footer>
-    </div>
+    </React.Fragment>
   );
 };
 

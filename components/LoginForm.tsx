@@ -1,49 +1,61 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { login } from '../redux/actions/authAction';
+import { Button, Checkbox, Form, Input, Row } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
-const LoginForm: React.FC = () => {
-  const dispatch = useDispatch();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+import { LoginFormProps } from '../types/components';
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    dispatch(login({ username, password }));
+const LoginForm: React.FC<LoginFormProps> = ({ onFinish }) => {
+  const [error, setError] = useState('');
+  const onFinishFailed = (errorInfo: any) => {
+    setError(errorInfo);
   };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>Login Here</h3>
+    <Form
+      name="basic"
+      wrapperCol={{ span: 16 }}
+      style={{ maxWidth: 600 }}
+      initialValues={{ remember: true }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      <Form.Item
+        name="username"
+        wrapperCol={{ offset: 0, span: 32 }}
+        rules={[{ required: true, message: 'Please input your username!' }]}
+      >
+        <Input
+          placeholder="Enter your username"
+          prefix={<UserOutlined className="site-form-item-icon" />}
+        />
+      </Form.Item>
 
-      <label htmlFor="username">Username</label>
-      <input
-        type="text"
-        placeholder="Email or Phone"
-        id="username"
-        onChange={(e)=>{setUsername(e.target.value)}}
-        value={username}
-      />
+      <Form.Item
+        name="password"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+        wrapperCol={{ offset: 0, span: 32 }}
 
-      <label htmlFor="password">Password</label>
-      <input
-        type="password"
-        placeholder="Password"
-        id="password"
-        onChange={(e)=>{setPassword(e.target.value)}}
-        value={password}
-      />
+      >
+        <Input.Password
+          placeholder="Enter your password"
+          prefix={<LockOutlined className="site-form-item-icon" />}
+        />
+      </Form.Item>
 
-      <button>Log In</button>
-      <div className="social">
-        <div className="go">
-          <i className="fab fa-google"></i> Google
-        </div>
-        <div className="fb">
-          <i className="fab fa-facebook"></i> Facebook
-        </div>
-      </div>
-    </form>
+      <Form.Item
+        name="remember"
+        valuePropName="checked"
+        wrapperCol={{ offset: 0, span: 32 }}
+      >
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
+
+      <Form.Item wrapperCol={{ offset: 7, span: 32 }}>
+        <Button type="primary" htmlType="submit">
+          Đăng nhập
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
 

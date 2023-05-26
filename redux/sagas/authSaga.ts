@@ -4,12 +4,11 @@ import { action } from '../types';
 import { axiosPost } from '../../utils/axios';
 import API from '../../utils/api';
 
-async function* handleLogin(action: action): AsyncGenerator<any, any, any> {
+function* handleLogin(action: action): Generator<any, any, any> {
   try {
     const { username, password } = action.payload;
-
     const response = yield call(
-      await axiosPost(API.AUTH.LOGIN, {
+      axiosPost(API.AUTH.LOGIN, {
         username,
         password,
       })

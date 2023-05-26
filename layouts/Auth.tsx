@@ -7,11 +7,11 @@ interface ContainerProps {
 }
 const AuthLayout: React.FC<ContainerProps> = ({ children }) => {
   return (
-    <div>
+    <React.Fragment>
       {/* <header>Auth Header</header> */}
-      <main>{children}</main>
+      <main style={{height: '100%'}}>{children}</main>
       {/* <footer>Auth Footer</footer> */}
-    </div>
+    </React.Fragment>
   );
 };
 
