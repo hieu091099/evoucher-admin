@@ -34,7 +34,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onFinish }) => {
         name="password"
         rules={[{ required: true, message: 'Please input your password!' }]}
         wrapperCol={{ offset: 0, span: 32 }}
-
       >
         <Input.Password
           placeholder="Enter your password"
@@ -50,9 +49,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onFinish }) => {
         <Checkbox>Remember me</Checkbox>
       </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 7, span: 32 }}>
-        <Button type="primary" htmlType="submit">
-          Đăng nhập
+      <Form.Item wrapperCol={{ offset: 6, span: 32 }}>
+        <Button type="primary" htmlType="submit" style={{width: 110}} >
+          Login
         </Button>
       </Form.Item>
     </Form>

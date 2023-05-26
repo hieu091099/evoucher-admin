@@ -24,7 +24,7 @@ const LoginPage = (props: AppProps) => {
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: `Login`,
+      label: `SignIn`,
       children: (
         <React.Fragment>
           <div style={{ marginBottom: 16 }} />
@@ -34,11 +34,10 @@ const LoginPage = (props: AppProps) => {
     },
     {
       key: '2',
-      label: `Register`,
+      label: `SignUp`,
       children: (
         <React.Fragment>
           <div style={{ marginBottom: 16 }} />
-
           <LoginForm onFinish={onFinish} />
         </React.Fragment>
       ),
