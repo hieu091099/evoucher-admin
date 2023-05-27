@@ -11,7 +11,11 @@ import {
 import { RegisterFormProps } from '../types/components';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
-const RegisterForm: React.FC<RegisterFormProps> = ({ onFinish }) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({
+  onFinish,
+  isShowButton = true,
+  form,
+}) => {
   const [error, setError] = useState('');
   const dateFormat = 'DD/MM/YYYY';
 
@@ -28,6 +32,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onFinish }) => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
+      form={form}
     >
       <Form.Item
         name="username"
@@ -88,12 +93,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onFinish }) => {
           prefix={<PhoneOutlined className="site-form-item-icon" />}
         />
       </Form.Item>
-
-      <Form.Item wrapperCol={{ offset: 6, span: 32 }}>
-        <Button type="primary" htmlType="submit" style={{ width: 110 }}>
-          Register
-        </Button>
-      </Form.Item>
+      {isShowButton && (
+        <Form.Item wrapperCol={{ offset: 6, span: 32 }}>
+          <Button type="primary" htmlType="submit" style={{ width: 110 }}>
+            Register
+          </Button>
+        </Form.Item>
+      )}
     </Form>
   );
 };

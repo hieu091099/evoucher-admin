@@ -14,6 +14,8 @@ import {
   MoneyCollectOutlined,
   FlagOutlined,
 } from '@ant-design/icons';
+import { useRouter } from 'next/router';
+
 import { Layout, Menu, Button, theme, Tooltip, Row, Col, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -28,6 +30,7 @@ interface ContainerProps {
 }
 const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
   requireAuth();
+  const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch();
 
@@ -35,20 +38,43 @@ const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const suffix = (
-    <AudioOutlined
-      style={{
-        fontSize: 16,
-        color: '#1677ff',
-      }}
-    />
-  );
 
   const handleOnClickLogout = (e: React.MouseEvent) => {
     dispatch(logout());
   };
 
   const onSearch = (value: string) => console.log(value);
+  const onSelect = (value: any) => {
+    console.log(value)
+    if(value.key === '1') {
+      router.push('/dashboard')
+      return null;
+    }
+    if(value.key === '2') {
+      router.push('/users')
+      return null;
+    }
+    if(value.key === '3') {
+      router.push('/partners')
+      return null;
+    }
+    if(value.key === '4') {
+      router.push('/games')
+      return null;
+    }
+    if(value.key === '5') {
+      router.push('/transactions')
+      return null;
+    }
+    if(value.key === '6') {
+      router.push('/vouchers')
+      return null;
+    }
+    if(value.key === '7') {
+      router.push('/campains')
+      return null;
+    }
+  };
 
   return (
     <React.Fragment>
@@ -83,6 +109,7 @@ const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
             theme="dark"
             mode="inline"
             defaultSelectedKeys={['1']}
+            onSelect={onSelect}
             items={[
               {
                 key: '1',
@@ -117,7 +144,7 @@ const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
               {
                 key: '7',
                 icon: <FlagOutlined />,
-                label: 'Manage Campaign',
+                label: 'Manage Campain',
               },
             ]}
           />
@@ -140,14 +167,14 @@ const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
                 />
               </Col>
               <Col span={12} style={{display:'flex', alignItems: 'center'}}>
-                <Search
+                {/* <Search
                   placeholder="input search text"
                   enterButton="Search"
                   size="large"
                   suffix={suffix}
                   onSearch={onSearch}
                   style={{ width: '100%', paddingRight: 16 }}
-                />
+                /> */}
               </Col>
             </Row>
           </Header>

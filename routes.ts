@@ -6,8 +6,33 @@ var routes = [
     layout: '/admin',
   },
   {
-    path: '/profile',
-    name: 'User Profile',
+    path: '/campains',
+    name: 'Campains',
+    layout: '/admin',
+  },
+  {
+    path: '/games',
+    name: 'Games',
+    layout: '/admin',
+  },
+  {
+    path: '/partners',
+    name: 'Partners',
+    layout: '/admin',
+  },
+  {
+    path: '/transactions',
+    name: 'Transactions',
+    layout: '/admin',
+  },
+  {
+    path: '/users',
+    name: 'Users',
+    layout: '/admin',
+  },
+  {
+    path: '/vouchers',
+    name: 'Vouchers',
     layout: '/admin',
   },
   {

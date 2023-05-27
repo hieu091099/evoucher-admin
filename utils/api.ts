@@ -1,13 +1,13 @@
-const API_ROOT = process.env.BACKEND_API_URL || '';
 const API = {
-  DASHBOARD: `${API_ROOT}/dashboard`,
+  DASHBOARD: `/dashboard`,
+  USERS: `/users`,
   AUTH: {
-    LOGIN: `${API_ROOT}/login`,
-    REGISTER: `${API_ROOT}/register`,
-    CHANGE_PASSWORD: `${API_ROOT}/changePassword/`,
-    FORGOT_PASSWORD: `${API_ROOT}/forgetPassword`,
-    FORGOT_PASSWORD_VERIFY_OTP: `${API_ROOT}/forgetPassword/verifyOtp`,
-    RESET_PASSWORD: `${API_ROOT}/forgetPassword/resetPassword`,
+    LOGIN: `/login`,
+    REGISTER: `/register`,
+    CHANGE_PASSWORD: `/changePassword/`,
+    FORGOT_PASSWORD: `/forgetPassword`,
+    FORGOT_PASSWORD_VERIFY_OTP: `/forgetPassword/verifyOtp`,
+    RESET_PASSWORD: `/forgetPassword/resetPassword`,
   },
 };
 

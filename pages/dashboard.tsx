@@ -1,41 +1,34 @@
 import React from 'react';
-import { Row, Col, Space } from 'antd';
+import { Row, Col } from 'antd';
 import Container from '../components/Container';
 import requireAuth from '../utils/requireAuth';
-
+import Card from '../components/Card';
 const DashboardPage: React.FC = () => {
-  const styleCT: React.CSSProperties = {
-    padding: 20,
-    height: 91,
-    background: '#FFFFFF',
-    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-    borderRadius: 10,
-    width: '100%',
-  };
-
   requireAuth();
+  
+
   return (
     <Container>
-      <Row justify="space-around" gutter={[16, 16]}>
+      <Row justify="space-around" gutter={[16, 16]} wrap>
         <Col span={6}>
-          <div style={styleCT}>
+          <Card>
             <h1>Partner</h1>
-          </div>
+          </Card>
         </Col>
         <Col span={6}>
-          <div style={styleCT}>
+          <Card>
             <h1>Campain</h1>
-          </div>
+          </Card>
         </Col>
         <Col span={6}>
-          <div style={styleCT}>
+          <Card>
             <h1>Transaction</h1>
-          </div>
+          </Card>
         </Col>
         <Col span={6}>
-          <div style={styleCT}>
+          <Card>
             <h1>Voucher</h1>
-          </div>
+          </Card>
         </Col>
       </Row>
       <Row

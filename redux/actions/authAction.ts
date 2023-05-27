@@ -10,7 +10,7 @@ export const login = (payload: object) => {
 export const LOGOUT = 'LOGOUT';
 export const logout = () => {
   return {
-    type: 'LOGOUT',
+    type: LOGOUT,
   };
 };
 
