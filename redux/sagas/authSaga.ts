@@ -7,12 +7,21 @@ import API from '../../utils/api';
 function* handleLogin(action: action): Generator<any, any, any> {
   try {
     const { username, password } = action.payload;
-    const response = yield call(
-      axiosPost(API.AUTH.LOGIN, {
-        username,
-        password,
-      })
-    );
+    let response = { data: {} };
+    if (username === 'admin' && password === 'admin') {
+      response = {
+        data: {
+          user: { username: 'admin', password: 'admin' },
+          accessToken: 'token',
+        },
+      };
+    }
+    // const response = yield call(
+    //   axiosPost(API.AUTH.LOGIN, {
+    //     username,
+    //     password,
+    //   })
+    // );
 
     yield put({
       type: LOGIN.SUCCESS,

@@ -1,48 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 import Container from '../components/Container';
-import Auth from '../layouts/Auth';
 import LoginForm from '../components/LoginForm';
 import { login } from '../redux/actions/authAction';
 
 const LoginPage = (props: AppProps) => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
+  const isLoggedIn = useSelector((state: any) => state.auth.isLoggedIn);
   const onFinish = (values: any) => {
     const { username, password } = values || { username: '', password: '' };
     dispatch(login({ username, password }));
   };
 
-  const onChange = (key: string) => {
-    console.log(key);
-  };
-
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: `SignIn`,
+      label: `ADMIN`,
       children: (
         <React.Fragment>
-          <div style={{ marginBottom: 16 }} />
-          <LoginForm onFinish={onFinish} />
-        </React.Fragment>
-      ),
-    },
-    {
-      key: '2',
-      label: `SignUp`,
-      children: (
-        <React.Fragment>
-          <div style={{ marginBottom: 16 }} />
+          <div style={{ marginBottom: 16, marginTop: 32 }} />
           <LoginForm onFinish={onFinish} />
         </React.Fragment>
       ),
     },
   ];
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push('/dashboard');
+    }
+  }, [isLoggedIn]);
 
   return (
     <Container style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -54,19 +48,13 @@ const LoginPage = (props: AppProps) => {
           boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
           borderRadius: 8,
           marginBottom: 132,
+          maxHeight: 488,
         }}
       >
-        <Tabs
-          size={'large'}
-          defaultActiveKey="1"
-          items={items}
-          onChange={onChange}
-          centered
-        />
+        <Tabs size={'large'} defaultActiveKey="1" items={items} centered />
       </div>
     </Container>
   );
 };
-LoginPage.layout = Auth;
 
 export default LoginPage;

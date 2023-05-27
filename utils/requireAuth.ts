@@ -2,18 +2,13 @@
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
-const requireAuth = (wrappedComponent: any) => {
-  const Wrapper = () => {
-    const router = useRouter();
-    const isAuthenticated = useSelector((state: any) => state.auth.isLoggedIn);
-    if (!isAuthenticated) {
-      router.push('/login');
-      return null;
-    }
-    return wrappedComponent;
-  };
-
-  return Wrapper;
+const requireAuth = () => {
+  const router = useRouter();
+  const isAuthenticated = useSelector((state: any) => state.auth.isLoggedIn);
+  if (!isAuthenticated) {
+    router.push('/login');
+    return null;
+  }
 };
 
 export default requireAuth;

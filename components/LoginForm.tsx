@@ -41,6 +41,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onFinish }) => {
         />
       </Form.Item>
 
+      <h5 style={{ textAlign: 'end', marginBottom: 8 }}>Forgot password?</h5>
+
       <Form.Item
         name="remember"
         valuePropName="checked"
@@ -50,7 +52,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onFinish }) => {
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 6, span: 32 }}>
-        <Button type="primary" htmlType="submit" style={{width: 110}} >
+        <Button type="primary" htmlType="submit" style={{ width: 110 }}>
           Login
         </Button>
       </Form.Item>

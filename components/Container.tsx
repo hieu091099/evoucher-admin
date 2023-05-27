@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ContainerProps {
   children: React.ReactNode;
-  style: object;
+  style?: object;
 }
 const styleCT: React.CSSProperties = { display: 'flex', height: '100%', flexDirection: 'column', background: 'white', };
 
