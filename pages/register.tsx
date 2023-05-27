@@ -13,11 +13,9 @@ const RegisterPage = (props: AppProps) => {
   const onFinish = (values: any) => {
     const { username, password } = values || { username: '', password: '' };
     // dispatch(login({ username, password }));
-    console.log('44444', values)
   };
 
   const onChange = (key: string) => {
-    console.log(key);
   };
 
   const items: TabsProps['items'] = [

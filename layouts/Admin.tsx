@@ -1,12 +1,11 @@
 // layouts/AdminLayout.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import requireAuth from '../utils/requireAuth';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
   LogoutOutlined,
-  AudioOutlined,
   BarChartOutlined,
   PlaySquareOutlined,
   UsergroupAddOutlined,
@@ -17,10 +16,9 @@ import {
 import { useRouter } from 'next/router';
 
 import { Layout, Menu, Button, theme, Tooltip, Row, Col, Input } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const { Header, Sider, Content } = Layout;
-const { Search } = Input;
 import { logout } from '../redux/actions/authAction';
 
 interface ContainerProps {
@@ -32,47 +30,65 @@ const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
   requireAuth();
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
+  let defaultSelectedKeys = ['1']
+  if(router.pathname.includes('dashboard')) {
+    defaultSelectedKeys = ['1']
+  }
+  if(router.pathname.includes('users')) {
+    defaultSelectedKeys = ['2']
+  }
+  if(router.pathname.includes('partners')) {
+    defaultSelectedKeys = ['3']
+  }
+  if(router.pathname.includes('games')) {
+    defaultSelectedKeys = ['4']
+  }
+  if(router.pathname.includes('transactions')) {
+    defaultSelectedKeys = ['5']
+  }
+  if(router.pathname.includes('vouchers')) {
+    defaultSelectedKeys = ['6']
+  }
+  if(router.pathname.includes('campains')) {
+    defaultSelectedKeys = ['7']
+  }
+
   const dispatch = useDispatch();
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-
   const handleOnClickLogout = (e: React.MouseEvent) => {
     dispatch(logout());
   };
 
-  const onSearch = (value: string) => console.log(value);
   const onSelect = (value: any) => {
-    console.log(value)
-    if(value.key === '1') {
-      router.push('/dashboard')
-      return null;
-    }
-    if(value.key === '2') {
-      router.push('/users')
-      return null;
-    }
-    if(value.key === '3') {
-      router.push('/partners')
-      return null;
-    }
-    if(value.key === '4') {
-      router.push('/games')
-      return null;
-    }
-    if(value.key === '5') {
-      router.push('/transactions')
-      return null;
-    }
-    if(value.key === '6') {
-      router.push('/vouchers')
-      return null;
-    }
-    if(value.key === '7') {
-      router.push('/campains')
-      return null;
+    switch (value.key) {
+      case '1':
+        router.push('/dashboard');
+        return;
+      case '2':
+        router.push('/users');
+        return;
+      case '3':
+        router.push('/partners');
+        return;
+      case '4':
+        router.push('/games');
+        return;
+      case '5':
+        router.push('/transactions');
+        return;
+      case '6':
+        router.push('/vouchers');
+        return;
+      case '7':
+        router.push('/campains');
+        return;
+      default:
+        router.push('/dashboard');
+        return;
     }
   };
 
@@ -108,7 +124,7 @@ const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={['1']}
+            defaultSelectedKeys={defaultSelectedKeys}
             onSelect={onSelect}
             items={[
               {
@@ -166,7 +182,7 @@ const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
                   }}
                 />
               </Col>
-              <Col span={12} style={{display:'flex', alignItems: 'center'}}>
+              <Col span={12} style={{ display: 'flex', alignItems: 'center' }}>
                 {/* <Search
                   placeholder="input search text"
                   enterButton="Search"

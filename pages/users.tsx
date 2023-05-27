@@ -24,8 +24,19 @@ const UserPage: React.FC = () => {
   requireAuth();
   const dispatch = useDispatch();
   const users = useSelector((state: any) => state.app.users);
-  console.log('users', users);
-  const { dataModalCreate, form, setModalCreate, setModalHide } = useModal();
+  const {
+    form,
+    isShowModal,
+    title,
+    setTitle,
+    setIsShowModal,
+    dataModal,
+    setDataModal,
+    setModalEdit,
+    setModalCreate,
+    setModalDelete,
+    setModalHide,
+  } = useModal();
 
   const columns: ColumnsType<DataType> = [
     {
@@ -72,12 +83,12 @@ const UserPage: React.FC = () => {
       key: 'operation',
       fixed: 'right',
       width: 200,
-      render: () => (
+      render: (e) => (
         <React.Fragment>
-          <Button type="primary" ghost>
+          <Button type="primary" ghost onClick={handleEdit(e)}>
             Edit
           </Button>
-          <Button danger style={{ marginLeft: 8 }}>
+          <Button danger style={{ marginLeft: 8 }} onClick={handleDelete(e)}>
             Delete
           </Button>
         </React.Fragment>
@@ -104,8 +115,17 @@ const UserPage: React.FC = () => {
       ...formData,
     });
     if (success) {
-        dispatch(user_create(data))
+      dispatch(user_create(data));
     }
+  };
+
+  const handleEdit = (value: any) => () => {
+    setModalEdit();
+    setDataModal(value);
+  };
+  const handleDelete = (value: any) => () => {
+    setModalDelete();
+    setDataModal(value);
   };
 
   const handleOk = () => {
@@ -114,14 +134,13 @@ const UserPage: React.FC = () => {
       .then((values) => {
         const dateObject = values.birthday.$d;
         const day = dateObject.getDate();
-        const month = dateObject.getMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0
+        const month = dateObject.getMonth() + 1;
         const year = dateObject.getFullYear();
         const formattedDate = `${day}/${month}/${year}`;
         const result = { ...values, birthday: formattedDate };
-        createUser(result)
-        // Xử lý giá trị từ form ở đây
-        form.resetFields(); // Reset form sau khi xử lý thành công (nếu cần)
-        handleCancel()
+        createUser(result);
+        form.resetFields(); 
+        handleCancel();
       })
       .catch((errorInfo) => {
         console.log('Validation failed:', errorInfo);
@@ -156,8 +175,8 @@ const UserPage: React.FC = () => {
         />
       </div>
       <Modal
-        title={dataModalCreate?.title}
-        open={dataModalCreate?.isShowModalCreate}
+        title={title}
+        open={isShowModal}
         onOk={handleOk}
         onCancel={handleCancel}
       >

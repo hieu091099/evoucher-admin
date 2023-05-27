@@ -1,60 +1,50 @@
 // layouts/AuthLayout.tsx
-import {useState,} from 'react';
+import { useState } from 'react';
 import { Form } from 'antd';
 const useModal = () => {
-    const [dataModalCreate, setDataModalCreate] = useState({
-        title: 'Create',
-        isShowModalCreate: false,
-        data: {},
-    
-    })
-    const [dataModalEdit, setDataModalEdit] = useState({
-        title: 'Edit',
-        isShowModalEdit: false,
-        data: {},
-    })
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [title, setTitle] = useState('Create');
+  const [dataModal, setDataModal] = useState({});
 
-    const [dataModalDelete, setDataModalDelete] = useState({
-        title: 'Delete',
-        isShowModalDelete: false,
-        data: {},
-    })
-    const [form] = Form.useForm();
+  const [form] = Form.useForm();
 
-    const setModalEdit = (data?: any) => {
-        setDataModalEdit(prev=>({...prev,isShowModalEdit: true, data}))
-        setDataModalCreate(prev=>({...prev,isShowModalCreate: false}))
-        setDataModalDelete(prev=>({...prev,isShowModalDelete: false}))
+  const setModalEdit = () => {
+    setIsShowModal(false)
 
-    }
-    const setModalCreate = (data?: any) => {
-        setDataModalCreate(prev=>({...prev, isShowModalCreate: true, data }))
-        setDataModalEdit(prev=>({...prev,isShowModalEdit: false}))
-        setDataModalDelete(prev=>({...prev,isShowModalDelete: false}))
+    setTitle('Edit')
+    setIsShowModal(true)
+  };
 
-    }
-    const setModalDelete = (data?: any) => {
-        setDataModalCreate(prev=>({...prev,isShowModalCreate: false}))
-        setDataModalDelete(prev=>({...prev, isShowModalDelete: true, data}))
-        setDataModalEdit(prev=>({...prev,isShowModalEdit: false}))
-    }
+  const setModalCreate = () => {
+    setIsShowModal(false)
 
-    const setModalHide = () => {
-        setDataModalCreate(prev=>({...prev,isShowModalCreate: false}))
-        setDataModalDelete(prev=>({...prev, isShowModalDelete: true}))
-        setDataModalEdit(prev=>({...prev,isShowModalEdit: false}))
-        form.resetFields();
-    }
+    setTitle('Create')
+    setIsShowModal(true)
+  };
+
+  const setModalDelete = () => {
+    setIsShowModal(false)
+    setTitle('Delete')
+    setIsShowModal(true)
+  };
+
+  const setModalHide = () => {
+    setIsShowModal(false)
+  };
+
   return {
     form,
-    dataModalCreate,
-    dataModalEdit,
-    dataModalDelete,
+    isShowModal,
+    title,
+    setTitle,
+    setIsShowModal,
+    dataModal,
+    setDataModal,
     setModalEdit,
     setModalCreate,
     setModalDelete,
-    setModalHide
-  }
+    setModalHide,
+  };
 };
 
 export default useModal;
