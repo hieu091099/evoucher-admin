@@ -1,6 +1,8 @@
 const API = {
   DASHBOARD: `/dashboard`,
   USERS: `/users`,
+  USERS_UPDATE: (id: any) => `/users/${id}`,
+  USERS_DELETE: (id: any) => `/users/${id}`,
   AUTH: {
     LOGIN: `/login`,
     REGISTER: `/register`,

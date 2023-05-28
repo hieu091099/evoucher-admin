@@ -19,11 +19,11 @@ export const axiosGet = async (url: string, config = {}) => {
   try {
     const response = await axiosInstance.get(url, config);
     if (response.status >= 200 && response.status <= 300) {
-      return { success: true, data: response.data };
+      return { success: true, data: response?.data };
     }
-    return { success: false, data: response.data };
+    return { success: false, data: response?.data };
   } catch (error: any) {
-    throw new Error(error.response?.data?.message || 'Something went wrong');
+    console.log('axiosGet', error.response?.data?.message || 'Something went wrong')
   }
 };
 
@@ -31,11 +31,11 @@ export const axiosPost = async (url: string, data: any, config = {}) => {
   try {
     const response = await axiosInstance.post(url, data, config);
     if (response.status >= 200 && response.status <= 300) {
-      return { success: true, data: response.data };
+      return { success: true, data: response?.data };
     }
-    return { success: false, data: response.data };
+    return { success: false, data: response?.data };
   } catch (error: any) {
-    throw new Error(error.response?.data?.message || 'Something went wrong');
+    console.log('axiosPost', error.response?.data?.message || 'Something went wrong')
   }
 };
 
@@ -43,11 +43,11 @@ export const axiosPut = async (url: string, data: any, config = {}) => {
   try {
     const response = await axiosInstance.put(url, data, config);
     if (response.status >= 200 && response.status <= 300) {
-      return { success: true, data: response.data };
+      return { success: true, data: response?.data };
     }
-    return { success: false, data: response.data };
+    return { success: false, data: response?.data };
   } catch (error: any) {
-    throw new Error(error.response?.data?.message || 'Something went wrong');
+    console.log('axiosPut', error.response?.data?.message || 'Something went wrong')
   }
 };
 
@@ -55,11 +55,11 @@ export const axiosDelete = async (url: string, config = {}) => {
   try {
     const response = await axiosInstance.delete(url, config);
     if (response.status >= 200 && response.status <= 300) {
-      return { success: true, data: response.data };
+      return { success: true, data: response?.data };
     }
-    return { success: false, data: response.data };
+    return { success: false, data: response?.data };
   } catch (error: any) {
-    throw new Error(error.response?.data?.message || 'Something went wrong');
+    console.log('axiosDelete', error.response?.data?.message || 'Something went wrong')
   }
 };
 

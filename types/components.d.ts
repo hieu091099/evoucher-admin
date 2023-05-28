@@ -5,6 +5,7 @@ export interface RegisterFormProps {
   onFinish?: any;
   isShowButton?: boolean;
   form?: any;
+  dataForm?: any;
 }
 
 export interface CardProps {

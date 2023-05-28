@@ -1,15 +1,20 @@
-'use client'
-import React, { useEffect } from 'react';
-import { Table, Button, Modal, Form } from 'antd';
+'use client';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Table, Button, Modal } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import HeaderBody from '../components/HeaderBody';
-import Container from '../components/Container';
-import authMiddleware from '../middlewares';
-import useModal from '../hooks/useModal';
-import RegisterForm from '../components/RegisterForm';
-import { axiosGet, axiosPost } from '../utils/axios';
+import HeaderBody from '@/components/HeaderBody';
+import Container from '@/components/Container';
+import authMiddleware from '@/middlewares';
+import useModal from '@/hooks/useModal';
+import RegisterForm from '@/components/RegisterForm';
+import { axiosDelete, axiosGet, axiosPost, axiosPut } from '../utils/axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { user_create, get_list_user } from '../redux/actions/appAction';
+import {
+  user_create,
+  user_update,
+  user_delete,
+  get_list_user,
+} from '../redux/actions/appAction';
 import API from '../utils/api';
 interface DataType {
   key: React.Key;
@@ -22,17 +27,15 @@ interface DataType {
 }
 
 const UserPage: React.FC = () => {
- 
   const dispatch = useDispatch();
+  const [searchItem, setSearchItem] = useState('');
   const users = useSelector((state: any) => state.app.users);
   const {
     form,
     isShowModal,
-    title,
-    setTitle,
-    setIsShowModal,
     dataModal,
     setDataModal,
+    title,
     setModalEdit,
     setModalCreate,
     setModalDelete,
@@ -98,30 +101,57 @@ const UserPage: React.FC = () => {
   ];
 
   const handleOnClick = () => {
+    form?.resetFields();
     setModalCreate();
+  };
+
+  const handleOnSearch = (value: any) => {
+    setSearchItem(value)
   };
   const handleCancel = () => {
     setModalHide();
   };
 
   const fetchListUser = async () => {
-    const { success, data } = await axiosGet(API.USERS);
-    if (success) {
-      dispatch(get_list_user(data));
+    const res = await axiosGet(API.USERS);
+    if (res?.success) {
+      dispatch(get_list_user(res?.data));
     }
   };
 
   const createUser = async (formData: any) => {
-    const { success, data } = await axiosPost(API.USERS, {
+    const res = await axiosPost(API.USERS, {
       ...formData,
     });
-    if (success) {
-      dispatch(user_create(data));
+    if (res?.success) {
+      dispatch(user_create(res?.data));
+    }
+  };
+
+  const editUser = async (formData: any) => {
+    const res = await axiosPut(API.USERS_UPDATE(formData?._id), {
+      ...formData,
+    });
+    if (res?.success) {
+      dispatch(user_update(res?.data));
+    }
+  };
+
+  const deleteUser = async (formData: any) => {
+    const res = await axiosDelete(API.USERS_DELETE(formData?._id));
+    if (res?.success) {
+      dispatch(user_delete(res?.data));
     }
   };
 
   const handleEdit = (value: any) => () => {
     setModalEdit();
+    form.setFieldsValue({
+      username: value.username,
+      password: value.password,
+      email: value.email,
+      phone: value.phone,
+    });
     setDataModal(value);
   };
   const handleDelete = (value: any) => () => {
@@ -129,23 +159,38 @@ const UserPage: React.FC = () => {
     setDataModal(value);
   };
 
+  const searchData = useMemo(() => {
+    if (searchItem) {
+      return users.filter((item: any) => item?.username.includes(searchItem));
+    }
+    return users;
+  }, [users, searchItem]);
+
   const handleOk = () => {
     form
       .validateFields()
       .then((values) => {
-        const dateObject = values.birthday.$d;
-        const day = dateObject.getDate();
-        const month = dateObject.getMonth() + 1;
-        const year = dateObject.getFullYear();
+        const dateObject = values?.birthday?.$d;
+        const day = dateObject?.getDate();
+        const month = dateObject?.getMonth() + 1;
+        const year = dateObject?.getFullYear();
         const formattedDate = `${day}/${month}/${year}`;
         const result = { ...values, birthday: formattedDate };
-        createUser(result);
-        form.resetFields(); 
-        handleCancel();
+        if (title === 'Create') {
+          createUser(result);
+        }
+        if (title === 'Edit') {
+          editUser({ ...result, _id: dataModal?._id });
+        }
+        form.resetFields();
       })
       .catch((errorInfo) => {
         console.log('Validation failed:', errorInfo);
       });
+    if (title === 'Delete') {
+      deleteUser(dataModal);
+    }
+    handleCancel();
   };
 
   useEffect(() => {
@@ -167,10 +212,11 @@ const UserPage: React.FC = () => {
           title={'Users'}
           titleButton={'Create'}
           onClick={handleOnClick}
+          onSearch={handleOnSearch}
         />
         <Table
           columns={columns}
-          dataSource={users}
+          dataSource={searchData}
           scroll={{ x: 1500 }}
           sticky
         />
@@ -182,7 +228,11 @@ const UserPage: React.FC = () => {
         onCancel={handleCancel}
       >
         <div style={{ marginBottom: 16 }} />
-        <RegisterForm form={form} isShowButton={false} />
+        {title === 'Delete' ? (
+          <h3 style={{ color: 'red' }}>Bạn có muốn xoá không ?</h3>
+        ) : (
+          <RegisterForm form={form} isShowButton={false} />
+        )}
       </Modal>
     </Container>
   );

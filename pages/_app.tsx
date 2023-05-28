@@ -5,11 +5,11 @@ import { useRouter } from 'next/router';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { store, persistor } from '../redux/store'; // Import Redux Store và Persistor từ file store/index.ts
-import Loading from '../components/Loading/Loading';
-import routes from '../routes';
-import AdminLayout from '../layouts/Admin';
-import AuthLayout from '../layouts/Auth';
+import { store, persistor } from '@/redux/store'; // Import Redux Store và Persistor từ file store/index.ts
+import Loading from '@/components/Loading/Loading';
+import routes from '@/routes';
+import AdminLayout from '@/layouts/Admin';
+import AuthLayout from '@/layouts/Auth';
 import '../public/styles.css';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

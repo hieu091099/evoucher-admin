@@ -23,6 +23,7 @@ import {
   TRANSACTION_DELETE,
   PARTNER_DELETE,
   GET_LIST_PARTNER,
+  SET_MODAL,
 } from '../actions/appAction';
 
 const initialState = {
@@ -79,7 +80,7 @@ const authReducer = (state = initialState, action: action) => {
     case USER_CREATE:
       return {
         ...state,
-        users:  [...state.users, ...[action.payload]],
+        users: [...state.users, ...[action.payload]],
       };
     case VOUCHER_CREATE:
       return {
@@ -103,105 +104,107 @@ const authReducer = (state = initialState, action: action) => {
       };
     // update
     case GAME_UPDATE:
-        return {
-          ...state,
-          games: state.games.map((item) => {
-            const id = action.payload._id;
-            if (id === item._id) {
-              return action.payload;
-            }
-          }),
-        };
+      return {
+        ...state,
+        games: state.games.map((item) => {
+          if (item?._id === action?.payload?._id) {
+            return { item, ...action?.payload };
+          }
+          return item;
+        }),
+      };
     case CAMPAIN_UPDATE:
       return {
         ...state,
         campains: state.campains.map((item) => {
-          const id = action.payload._id;
-          if (id === item._id) {
-            return action.payload;
+          if (item?._id === action?.payload?._id) {
+            return { item, ...action?.payload };
           }
+          return item;
         }),
       };
     case USER_UPDATE:
       return {
         ...state,
         users: state.users.map((item) => {
-          const id = action.payload._id;
-          if (id === item._id) {
-            return action.payload;
+          if (item?._id === action?.payload?._id) {
+            return { item, ...action?.payload };
           }
+          return item;
         }),
       };
     case VOUCHER_UPDATE:
       return {
         ...state,
         vouchers: state.vouchers.map((item) => {
-          const id = action.payload._id;
-          if (id === item._id) {
-            return action.payload;
+          if (item?._id === action?.payload?._id) {
+            return { item, ...action?.payload };
           }
+          return item;
         }),
       };
     case TRANSACTION_UPDATE:
       return {
         ...state,
         transactions: state.transactions.map((item) => {
-          const id = action.payload._id;
-          if (id === item._id) {
-            return action.payload;
+          if (item?._id === action?.payload?._id) {
+            return { item, ...action?.payload };
           }
+          return item;
         }),
       };
     case PARTNER_UPDATE:
       return {
         ...state,
         partners: state.partners.map((item) => {
-          const id = action.payload._id;
-          if (id === item._id) {
-            return action.payload;
+          if (item?._id === action?.payload?._id) {
+            return { item, ...action?.payload };
           }
+          return item;
         }),
       };
 
     // delete
     case GAME_DELETE:
-        return {
-          ...state,
-          games: state.games.filter(
-            (item) => !action.payload.includes(item)
-          ),
-        };
+      return {
+        ...state,
+        games: state.games.filter(
+          (item) => !action.payload?._id.includes(item?._id)
+        ),
+      };
     case CAMPAIN_DELETE:
       return {
         ...state,
         campains: state.campains.filter(
-          (item) => !action.payload.includes(item)
+          (item) => !action.payload?._id.includes(item?._id)
         ),
       };
     case USER_DELETE:
       return {
         ...state,
-        users: state.users.filter((item) => !action.payload.includes(item)),
+        users: state.users.filter(
+          (item) => !action.payload?._id.includes(item?._id)
+        ),
       };
     case VOUCHER_DELETE:
       return {
         ...state,
         vouchers: state.vouchers.filter(
-          (item) => !action.payload.includes(item)
+          (item) => !action.payload?._id.includes(item?._id)
         ),
       };
     case TRANSACTION_DELETE:
       return {
         ...state,
         transactions: state.transactions.filter(
-          (item) => !action.payload.includes(item)
+          (item) => !action.payload?._id.includes(item?._id)
         ),
       };
     case PARTNER_DELETE:
       return {
         ...state,
         partners: state.partners.filter(
-          (item) => !action.payload.includes(item)
+          (item) => !action.payload?._id.includes(item?._id)
         ),
       };
     default:
