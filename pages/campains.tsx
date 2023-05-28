@@ -1,10 +1,10 @@
 import React from 'react';
 import { Row, Col, Space } from 'antd';
 import Container from '../components/Container';
-import requireAuth from '../utils/requireAuth';
+import auth from '../middlewares';
 
 const CampainPage: React.FC = () => {
-  requireAuth();
+ 
   
   return (
     <Container>
@@ -23,4 +23,4 @@ const CampainPage: React.FC = () => {
   );
 };
 
-export default CampainPage;
+export default auth(CampainPage);

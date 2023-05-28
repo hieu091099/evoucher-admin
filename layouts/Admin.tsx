@@ -1,6 +1,5 @@
 // layouts/AdminLayout.tsx
 import React, { useState, useEffect } from 'react';
-import requireAuth from '../utils/requireAuth';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -27,7 +26,6 @@ interface ContainerProps {
   footer: React.ReactNode;
 }
 const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
-  requireAuth();
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   let defaultSelectedKeys = ['1']
