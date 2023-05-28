@@ -1,10 +1,12 @@
+'use client'
+
 import React from 'react';
 import { Row, Col } from 'antd';
 import Container from '../components/Container';
-import requireAuth from '../utils/requireAuth';
+import authMiddleware from '../middlewares';
 import Card from '../components/Card';
 const DashboardPage: React.FC = () => {
-  requireAuth();
+
   
 
   return (
@@ -46,4 +48,4 @@ const DashboardPage: React.FC = () => {
   );
 };
 
-export default DashboardPage;
+export default authMiddleware(DashboardPage);

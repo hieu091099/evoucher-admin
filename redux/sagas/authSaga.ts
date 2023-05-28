@@ -1,3 +1,4 @@
+'use client'
 import { takeEvery, put, call } from 'redux-saga/effects';
 import { LOGIN } from '../actions/authAction';
 import { action } from '../types';

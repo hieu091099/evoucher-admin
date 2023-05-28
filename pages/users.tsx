@@ -1,9 +1,10 @@
+'use client'
 import React, { useEffect } from 'react';
 import { Table, Button, Modal, Form } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import HeaderBody from '../components/HeaderBody';
 import Container from '../components/Container';
-import requireAuth from '../utils/requireAuth';
+import authMiddleware from '../middlewares';
 import useModal from '../hooks/useModal';
 import RegisterForm from '../components/RegisterForm';
 import { axiosGet, axiosPost } from '../utils/axios';
@@ -21,7 +22,7 @@ interface DataType {
 }
 
 const UserPage: React.FC = () => {
-  requireAuth();
+ 
   const dispatch = useDispatch();
   const users = useSelector((state: any) => state.app.users);
   const {
@@ -187,4 +188,4 @@ const UserPage: React.FC = () => {
   );
 };
 
-export default UserPage;
+export default authMiddleware(UserPage);

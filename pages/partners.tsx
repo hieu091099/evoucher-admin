@@ -1,10 +1,11 @@
+'use client'
+
 import React from 'react';
 import { Row, Col, Space } from 'antd';
 import Container from '../components/Container';
-import requireAuth from '../utils/requireAuth';
+import authMiddleware from '../middlewares';
 
 const PartnerPage: React.FC = () => {
-  requireAuth();
   
   return (
     <Container>
@@ -23,4 +24,4 @@ const PartnerPage: React.FC = () => {
   );
 };
 
-export default PartnerPage;
+export default authMiddleware(PartnerPage);

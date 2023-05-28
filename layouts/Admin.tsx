@@ -14,7 +14,7 @@ import {
   FlagOutlined,
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
-
+import authMiddleware from '../middlewares'
 import { Layout, Menu, Button, theme, Tooltip, Row, Col, Input } from 'antd';
 import { useDispatch } from 'react-redux';
 
@@ -209,4 +209,4 @@ const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
   );
 };
 
-export default AdminLayout;
+export default authMiddleware(AdminLayout);

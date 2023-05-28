@@ -1,10 +1,12 @@
+'use client'
+
 import React from 'react';
 import { Row, Col, Space } from 'antd';
 import Container from '../components/Container';
-import requireAuth from '../utils/requireAuth';
+import authMiddleware from '../middlewares';
 
 const VoucherPage: React.FC = () => {
-  requireAuth();
+  
   
   return (
     <Container>
@@ -23,4 +25,4 @@ const VoucherPage: React.FC = () => {
   );
 };
 
-export default VoucherPage;
+export default authMiddleware(VoucherPage);
