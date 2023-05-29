@@ -15,6 +15,9 @@ const API = {
   VOUCHERS: `/vouchers`,
   VOUCHERS_UPDATE: (id: any) => `/vouchers/${id}`,
   VOUCHERS_DELETE: (id: any) => `/vouchers/${id}`,
+  CAMPAINS: `/campains`,
+  CAMPAINS_UPDATE: (id: any) => `/campains/${id}`,
+  CAMPAINS_DELETE: (id: any) => `/campains/${id}`,
   AUTH: {
     LOGIN: `/login`,
     REGISTER: `/register`,

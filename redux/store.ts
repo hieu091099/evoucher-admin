@@ -29,7 +29,7 @@ type RootState = ReturnType<typeof rootReducer>;
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'],
+  whitelist: ['auth', 'app'],
 };
 
 const persistedReducer  = persistReducer(persistConfig, rootReducer);
