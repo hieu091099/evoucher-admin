@@ -1,9 +1,9 @@
 const API = {
   DASHBOARD: `/dashboard`,
-  USERS: `/users`,
+  USERS: `/users/getAll`,
   USERS_UPDATE: (id: any) => `/users/${id}`,
   USERS_DELETE: (id: any) => `/users/${id}`,
-  PARTNERS: `/partners`,
+  PARTNERS: `/partner`,
   PARTNERS_UPDATE: (id: any) => `/partners/${id}`,
   PARTNERS_DELETE: (id: any) => `/partners/${id}`,
   GAMES: `/games`,
@@ -19,8 +19,8 @@ const API = {
   CAMPAINS_UPDATE: (id: any) => `/campains/${id}`,
   CAMPAINS_DELETE: (id: any) => `/campains/${id}`,
   AUTH: {
-    LOGIN: `/login`,
-    REGISTER: `/register`,
+    LOGIN: `users/login`,
+    REGISTER: `users/register`,
     CHANGE_PASSWORD: `/changePassword/`,
     FORGOT_PASSWORD: `/forgetPassword`,
     FORGOT_PASSWORD_VERIFY_OTP: `/forgetPassword/verifyOtp`,

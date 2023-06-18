@@ -6,7 +6,6 @@ const initialState = {
   isLoggingIn: false,
   account: {
     token: '',
-    refreshToken: '',
     user: {},
   },
 };
@@ -22,14 +21,14 @@ const authReducer = (state = initialState, action: any) => {
 
     case LOGIN.SUCCESS: {
       const result = action.payload;
-      setAuthToken(action.payload.accessToken || '');
+      console.log('4444', result)
+      setAuthToken(result?.token?.accessToken || '');
       return {
         ...state,
         isLoggedIn: true,
         isLoggingIn: false,
         account: {
-          token: result?.accessToken,
-          refreshToken: result?.refreshToken,
+          token: result?.token?.accessToken,
           user: { ...result?.user },
         },
       };

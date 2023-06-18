@@ -115,6 +115,7 @@ const PartnerPage: React.FC = () => {
 
   const fetchListPartner = async () => {
     const res = await axiosGet(API.PARTNERS);
+    console.log('4444', res)
     if (res?.success) {
       dispatch(get_list_partner(res?.data));
     }

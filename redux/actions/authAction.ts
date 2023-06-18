@@ -7,6 +7,20 @@ export const login = (payload: object) => {
     payload,
   };
 };
+
+export const loginSuccess = (payload: object) => {
+  return {
+    type: LOGIN.SUCCESS,
+    payload,
+  };
+};
+
+export const loginFail = (payload: object) => {
+  return {
+    type: LOGIN.FAIL,
+    payload,
+  };
+};
 export const LOGOUT = 'LOGOUT';
 export const logout = () => {
   return {

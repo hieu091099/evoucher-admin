@@ -2,37 +2,28 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
 import { LOGIN } from '../actions/authAction';
 import { action } from '../types';
-import { axiosPost } from '../../utils/axios';
+import axios from '../../utils/axios';
 import API from '../../utils/api';
+import { loginSuccess, loginFail } from '../actions/authAction';
 
-function* handleLogin(action: action): Generator<any, any, any> {
+const calllogin = async (payload: {username: string; password: string}) => {
+  const response = await axios.post(API.AUTH.LOGIN, {
+    username: payload.username,
+    password: payload.password,
+  });
+  
+  return response.data;
+};
+
+function* handleLogin(action: any): Generator<any, any, any> {
   try {
-    const { username, password } = action.payload;
-    let response = { data: {} };
-    if (username === 'admin' && password === 'admin') {
-      response = {
-        data: {
-          user: { username: 'admin', password: 'admin' },
-          accessToken: 'token',
-        },
-      };
+    const response: {token: string; authentication: boolean; user: object} =
+      yield call(calllogin, action.payload);
+    if (response?.authentication) {
+      yield put(loginSuccess(response));
     }
-    // const response = yield call(
-    //   axiosPost(API.AUTH.LOGIN, {
-    //     username,
-    //     password,
-    //   })
-    // );
-
-    yield put({
-      type: LOGIN.SUCCESS,
-      payload: response.data,
-    });
   } catch (error: any) {
-    yield put({
-      type: LOGIN.FAIL,
-      payload: error.message,
-    });
+    yield put(loginFail(error.message));
   }
 }
 

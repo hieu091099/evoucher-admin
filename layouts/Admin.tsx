@@ -133,32 +133,32 @@ const AdminLayout: React.FC<ContainerProps> = ({ children }) => {
               {
                 key: '2',
                 icon: <UserOutlined />,
-                label: 'Manage User',
+                label: 'Users',
               },
               {
                 key: '3',
                 icon: <UsergroupAddOutlined />,
-                label: 'Manage Partner',
+                label: 'Partners',
               },
               {
                 key: '4',
                 icon: <PlaySquareOutlined />,
-                label: 'Manage Game',
+                label: 'Games',
               },
               {
                 key: '5',
                 icon: <TransactionOutlined />,
-                label: 'Manage Transaction',
+                label: ' Transactions',
               },
               {
                 key: '6',
                 icon: <MoneyCollectOutlined />,
-                label: 'Manage Voucher',
+                label: 'Vouchers',
               },
               {
                 key: '7',
                 icon: <FlagOutlined />,
-                label: 'Manage Campain',
+                label: ' Campains',
               },
             ]}
           />
